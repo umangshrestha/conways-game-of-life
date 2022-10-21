@@ -1,17 +1,7 @@
 import { useCallback, useRef, useState } from 'react';
 import produce from 'immer';
 import '../styles/game-of-life.css';
-
-const NEIGHBORS = [
-    { X: -1, Y: -1 },
-    { X: -1, Y: 0 },
-    { X: -1, Y: 1 },
-    { X: 0, Y: -1 },
-    { X: 0, Y: 1 },
-    { X: 1, Y: -1 },
-    { X: 1, Y: 0 },
-    { X: 1, Y: 1 },
-]
+import { NEIGHBORS } from '../constants/neighbors';
 
 const emptyGrid = (nRows: number, nCols: number) => {
     const newGrid: boolean[][] = new Array(nRows).fill(
@@ -98,12 +88,15 @@ export const GameOfLife = () => {
             </div>
             <section className='section'>
                 <button
+                    key="clear"
                     onClick={() => setGrid(emptyGrid(nRows, nCols))}
                     disabled={isRunning}> Clear</button>
                 <button
+                    key="random"
                     onClick={() => setGrid(randomGrid(nRows, nCols))}
                     disabled={isRunning}>Random</button>
                 <button
+                    key="start"
                     onClick={() => {
                         setIsRunning(!isRunning);
                         if (!isRunning) {
