@@ -35,7 +35,6 @@ export const GameOfLife = () => {
             }))
     }
 
-
     const iterate = useCallback(() => {
         if (!runningRef.current)
             return
@@ -77,6 +76,7 @@ export const GameOfLife = () => {
                     rows.map((val, c) =>
                         <div key={`${r}-${c}`}
                             onClick={() => toggleState(r, c)}
+                            onDrop={() =>console.log(`${r}-${c}}`) }
                             style={{
                                 height: 15,
                                 width: 15,

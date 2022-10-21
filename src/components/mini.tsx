@@ -7,13 +7,12 @@ import { IPattern } from "../types/pattern";
 export const MiniGame = ({ name, grid: g }: IPattern) => {
     const [grid, setGrid] = useState(g);
 
-    const [isDragged, setIsDragged] = useState(false);
     const [isRunning, setIsRunning] = useState(false);
     const runningRef = useRef(isRunning);
     runningRef.current = isRunning;
     const nRows = grid.length;
     const nCols = grid[0].length;
-   
+
 
     const iterate = useCallback(() => {
         if (!runningRef.current)
@@ -36,7 +35,7 @@ export const MiniGame = ({ name, grid: g }: IPattern) => {
                 }
             }
         }))
-        setTimeout(iterate, 200);
+        setTimeout(iterate, 1000);
     }, [])
 
     return (
@@ -48,19 +47,17 @@ export const MiniGame = ({ name, grid: g }: IPattern) => {
                     display: "grid",
                     gridTemplateColumns: `repeat(${nCols}, 0fr)`,
                     backgroundColor: "transparent",
-                    transition: isDragged ? `0.01 ms` : undefined,
-                    transform: isDragged ? `translateX(-9999px)` : undefined,
                 }}
-                draggable={true}
 
                 onMouseOver={() => {
                     setIsRunning(true);
                     runningRef.current = true;
                     iterate();
                 }}
-                onMouseOut={()=> {
+                onMouseOut={() => {
                     setIsRunning(false);
                     runningRef.current = false;
+                    setGrid(g);
                 }}
             >
                 {
